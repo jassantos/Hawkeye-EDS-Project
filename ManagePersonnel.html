@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Manage Personnel - Hawkeye EDS</title>
+  <link rel="stylesheet" href="css/ManagePersonnel.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2 class="sidebar-title">HAWKEYE EDS</h2>
+    <div class="logo-box">
+      <img src="avatar/pic.png" class="profile" alt="User" />
+    </div>
+
+  <ul class="menu">
+    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+    <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+  </ul>
+</div>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Customer Service Portal</h1>
+      <div class="search">
+        <input type="text" placeholder="Search" />
+        <button>🔍</button>
+      </div>
+      <div class="icons">
+        <div class="icon-btn" id="settingsBtn">⚙️</div>
+        <div class="icon-btn" id="notifyBtn">
+          🔔<span class="badge">2</span>
+        </div>
+        <img src="assets/4.png" class="profile" alt="User" />
+      </div>
+      <div class="dropdown" id="settingsDropdown">
+        <p><a href="#">Profile Settings</a></p>
+        <p><a href="#">Theme Options</a></p>
+        <p><a href="#">Logout</a></p>
+      </div>
+      <div class="dropdown" id="notifyDropdown">
+        <p>🔹 System alert: new update available</p>
+        <p>🔹 Ticket #241 resolved</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="page-header-section">
+        <div class="back-nav">
+          <a href="personnel.html" class="back-link"><i class="fa-solid fa-arrow-left"></i></a>
+          <h2>Manage Personnel</h2>
+        </div>
+      </div>
+
+      <div class="personnel-form-container">
+        <form id="managePersonnelForm" onsubmit="event.preventDefault(); savePersonnel();">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name*</label>
+              <input type="text" id="firstName" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lastName">Last Name*</label>
+              <input type="text" id="lastName" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number*</label>
+              <input type="tel" id="phoneNumber" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="emailAddress">Work Email*</label>
+              <input type="email" id="emailAddress" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="permissionStatus">Permission Status*</label>
+              <select id="permissionStatus" required>
+                <option value="Admin">Admin</option>
+                <option value="Manager">Manager</option>
+                <option value="User">User</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-buttons">
+            <button type="button" class="cancel-btn" onclick="window.location.href='personnel.html'">Cancel</button>
+            <button type="submit" class="save-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    const notifyBtn = document.getElementById('notifyBtn');
+    const notifyDropdown = document.getElementById('notifyDropdown');
+
+    if (settingsBtn && settingsDropdown) {
+      settingsBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        settingsDropdown.style.display = settingsDropdown.style.display === 'flex' ? 'none' : 'flex';
+        if (notifyDropdown) notifyDropdown.style.display = 'none';
+      });
+    }
+
+    if (notifyBtn && notifyDropdown) {
+      notifyBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        notifyDropdown.style.display = notifyDropdown.style.display === 'flex' ? 'none' : 'flex';
+        if (settingsDropdown) settingsDropdown.style.display = 'none';
+      });
+    }
+
+    document.addEventListener('click', () => {
+      if (settingsDropdown) settingsDropdown.style.display = 'none';
+      if (notifyDropdown) notifyDropdown.style.display = 'none';
+    });
+
+    // Save personnel data
+    window.savePersonnel = function() {
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('emailAddress').value;
+      const phone = document.getElementById('phoneNumber').value;
+      const permission = document.getElementById('permissionStatus').value;
+
+      alert(`Personnel updated successfully!\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nPermission: ${permission}`);
+      // Optionally redirect back to personnel list
+      // window.location.href = 'personnel.html';
+    }
+  });
+  </script>
+</body>
+</html>

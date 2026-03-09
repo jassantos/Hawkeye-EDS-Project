@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Portal - Edit User</title>
+    <link rel="stylesheet" href="/hawkeye-eds/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 class="sidebar-title">HAWKEYE EDS</h2>
+
+        <div class="logo-box">
+            <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+        </div>
+
+        <ul class="menu">
+            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+            <li><a href="user.html" class="active"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-bullhorn"></i><span>Ads</span></a></li>
+            <li><a href="#"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="topbar">
+            <h1>Customer Service Portal</h1>
+
+            <div class="search">
+                <input type="text" placeholder="Search" />
+                <button>🔍</button>
+            </div>
+
+            <div class="icons">
+                <div class="icon-btn" id="settingsBtn">⚙️</div>
+                <div class="icon-btn" id="notifyBtn">
+                    🔔<span class="badge">2</span>
+                </div>
+                <img src="assets/4.png" class="profile" alt="User" />
+            </div>
+
+            <!-- Settings dropdown -->
+            <div class="dropdown" id="settingsDropdown">
+                <p><a href="#">Profile Settings</a></p>
+                <p><a href="#">Theme Options</a></p>
+                <p><a href="#">Logout</a></p>
+            </div>
+
+            <!-- Notifications dropdown -->
+            <div class="dropdown" id="notifyDropdown">
+                <p>🔹 System alert: new update available</p>
+                <p>🔹 Ticket #241 resolved</p>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Breadcrumb Navigation -->
+            <div class="breadcrumb">
+                <a href="manage-users.html"><i class="fas fa-arrow-left back-icon"></i></a>
+                <span class="breadcrumb-title">Edit User</span>
+                <div class="breadcrumb-path">
+                <a href="user.html" class="breadcrumb-link">Dashboard</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="/manage-users.html" class="breadcrumb-link">User's List</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Edit User</span>
+            </div>
+
+            </div>
+
+            <!-- Edit User Form -->
+            <div class="edit-user-container">
+                <form class="edit-user-form" onsubmit="saveUserChanges(event)">
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="firstName">First Name*</label>
+                            <input type="text" id="firstName" value="John" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="lastName">Last Name*</label>
+                            <input type="text" id="lastName" value="Smith" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="phoneNumber">Phone Number</label>
+                            <div class="phone-input">
+                                <div class="country-code">
+                                    <img src="assets/us-flag.png" alt="US Flag" class="flag-icon">
+                                    <input type="text" value="+44 20 7123 4567" class="phone-field">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="role">Role*</label>
+                            <select id="role" required>
+                                <option value="admin" selected>Admin</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="manager">Manager</option>
+                                <option value="employee">Employee</option>
+                                <option value="security-guard">Security Guard</option>
+                            </select>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="statusEdit">Status</label>
+                            <div class="status-dropdown">
+                                <select id="statusEdit" name="statusEdit">
+                                    <option value="active" selected>Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="disabled">Disabled</option>
+                                    <option value="suspended">Suspended</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Joined Date</label>
+                            <div class="date-inputs">
+                                <div class="date-group">
+                                    <label for="month">Month*</label>
+                                    <select id="month" required>
+                                        <option value="september" selected>September</option>
+                                        <option value="january">January</option>
+                                        <option value="february">February</option>
+                                        <option value="march">March</option>
+                                        <option value="april">April</option>
+                                        <option value="may">May</option>
+                                        <option value="june">June</option>
+                                        <option value="july">July</option>
+                                        <option value="august">August</option>
+                                        <option value="october">October</option>
+                                        <option value="november">November</option>
+                                        <option value="december">December</option>
+                                    </select>
+                                </div>
+                                <div class="date-group">
+                                    <label for="day">Day*</label>
+                                    <select id="day" required>
+                                        <option value="20" selected>20</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                    </select>
+                                </div>
+                                <div class="date-group">
+                                    <label for="year">Year*</label>
+                                    <select id="year" required>
+                                        <option value="2023" selected>2023</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2024">2024</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="emailEdit">Email*</label>
+                            <input type="email" id="emailEdit" value="john.smith@gmail.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="password-actions">
+                            <button type="button" class="btn btn-info">Reset Password for this User</button>
+                            <button type="button" class="btn btn-info">Unlock User</button>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/hawkeye-eds/scripts/user.js"></script>
+    <script src="/hawkeye-eds/scripts/edit-user.js"></script>
+</body>
+</html>

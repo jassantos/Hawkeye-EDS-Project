@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <title>Settings-Hawkeye-EDS</title>
+    <link rel="stylesheet" href="css/settings.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2 class="sidebar-title">HAWKEYE EDS</h2>
+
+      <div class="logo-box">
+        <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+      </div>
+
+  <ul class="menu">
+    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+    <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+  </ul>
+</div>
+
+    <div class="main">
+      <div class="topbar">
+        <h1>Customer Service Portal</h1>
+
+        <div class="search">
+          <input type="text" placeholder="Search" />
+          <button>🔍</button>
+        </div>
+
+        <div class="icons">
+          <div class="icon-btn" id="settingsBtn">⚙️</div>
+          <div class="icon-btn" id="notifyBtn">
+            🔔<span class="badge">2</span>
+          </div>
+          <img src="assets/4.png" class="profile" alt="User" />
+        </div>
+
+        <!-- Settings dropdown -->
+        <div class="dropdown" id="settingsDropdown">
+          <p><a href="#">Profile Settings</a></p>
+          <p><a href="#">Theme Options</a></p>
+          <p><a href="#">Logout</a></p>
+        </div>
+
+        <!-- Notifications dropdown -->
+        <div class="dropdown" id="notifyDropdown">
+          <p>🔹 System alert: new update available</p>
+          <p>🔹 Ticket #241 resolved</p>
+        </div>
+      </div>
+      <div class="settings-container">
+        <div class="settings-nav">
+          <ul class="settings-tabs">
+            <li><a href="#Edit-Profile" class="tab-link">Edit Profile</a></li>
+            <li><a href="#Preferences" class="tab-link">Preferences</a></li>
+            <li><a href="#Security" class="tab-link">Security</a></li>
+          </ul>
+        </div>
+
+        <div class="settings-content">
+          <div id="Edit-Profile" class="settings-section">
+            <div>
+              <div class="forms">
+                <div class="form-section"><img src="assets/4.png" alt=""></div>
+                <!-- Left half of the form -->
+                <div class="form-section">
+                  <div class="form-group">
+                    <label for="your-name">Your Name</label>
+                    <input type="text" id="your-name" />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" />
+                  </div>
+                  <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" />
+                  </div>
+                  <div class="form-group">
+                    <label for="permanent-address">Permanent Address</label>
+                    <input id="permanent-address" rows="3"></input>
+                  </div>
+                  <div class="form-group">
+                    <label for="postal-code">Postal Code</label>
+                    <input type="text" id="postal-code" />
+                  </div>
+                </div>
+                <!-- Right half of the form -->
+                <div class="form-section">
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" />
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" />
+                  </div>
+                  <div class="form-group">
+                    <label for="present-address">Present Address</label>
+                    <input id="present-address" rows="3"></input>
+                  </div>
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" />
+                  </div>
+                  <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" />
+                  </div>
+                </div>
+              </div>
+              <div class="save-btn-cont">
+                <button class="save-btn">Save</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="Preferences" class="settings-section">
+            <h3>Preferences</h3>
+            <div class="pref-section">
+              <div class="pref-options">
+                <div class="form-group">
+                  <label for="currency">Currency</label>
+                  <select id="currency" class="currency-dropdown">
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="INR">INR - Indian Rupee</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="GBP">GBP - British Pound</option>
+                    <option value="JPY">JPY - Japanese Yen</option>
+                    <option value="AUD">AUD - Australian Dollar</option>
+                    <option value="CAD">CAD - Canadian Dollar</option>
+                    <option value="CHF">CHF - Swiss Franc</option>
+                    <option value="CNY">CNY - Chinese Yuan</option>
+                    <option value="SGD">SGD - Singapore Dollar</option>
+                    <option value="AED">AED - UAE Dirham</option>
+                    <option value="SAR">SAR - Saudi Riyal</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="language">Time Zone</label>
+                  <select id="language" class="language-dropdown">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="ja">Japanese</option>
+                    <option value="zh">Chinese</option>
+                    <option value="ar">Arabic</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button class="save-btn">Save Preferences</button>
+          </div>
+
+          <div id="Security" class="settings-section">
+            <h3>Security Settings</h3>
+            <div class="notification-group">
+              <h4>Two Factor Authentication</h4>
+              <label class="switch">
+                <input type="checkbox" id="twoFactorToggle">
+                <span class="slider"></span>
+                <span class="toggle-label">Enable Two Factor Authentication</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="current-password">Current Password:</label>
+              <input type="password" id="current-password" />
+            </div>
+            <div class="form-group">
+              <label for="new-password">New Password:</label>
+              <input type="password" id="new-password" />
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Confirm Password:</label>
+              <input type="password" id="confirm-password" />
+            </div>
+            <button class="save-btn">Update Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/settings.js"></script>
+  </body>
+</html>

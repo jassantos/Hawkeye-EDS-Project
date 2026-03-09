@@ -1,0 +1,204 @@
+/* ===============================
+   General Reset
+================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===============================
+   Page Background
+================================= */
+/* ===============================
+   Page Background (Animated Gradient)
+================================= */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px 15px;
+
+  background: linear-gradient(-45deg, #1e3c72, #2a5298, #0f2027, #203a43);
+  background-size: 400% 400%;
+  animation: moveBg 12s ease infinite;
+}
+
+/* Background Animation */
+@keyframes moveBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* ===============================
+   Container Card
+================================= */
+.container {
+  width: 420px;
+  max-width: 92vw;
+  background-color: #023f4d;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.18);
+  text-align: center;
+}
+
+/* ===============================
+   Logo
+================================= */
+.logo {
+  width: 160px;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto;
+}
+
+/* ===============================
+   Main Title (HAWKEYE EDS)
+================================= */
+.title {
+  font-size: 26px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  color: #ffffff;   /* changed to white */
+  font-weight: 700;
+}
+
+/* ===============================
+   Welcome Text
+================================= */
+.welcome {
+  font-size: 15px;
+  color: #c8f9f9;   /* soft readable color */
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+/* ===============================
+   Registration Title
+================================= */
+.form-title {
+  font-size: 20px;
+  color: #00ffff;
+  margin: 15px 0 20px;
+  font-weight: 700;
+}
+
+/* ===============================
+   Form Groups
+================================= */
+form {
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  color: #00e0e0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===============================
+   Inputs
+================================= */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 7px;
+  border: none;
+  font-size: 14px;
+  background-color: #e6f7f7;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 8px #00ffff;
+}
+
+/* ===============================
+   Checkbox Row
+================================= */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 18px;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox-row label {
+  margin: 0;
+  color: #00e0e0;
+  font-size: 13px;
+}
+
+/* ===============================
+   Register Button
+================================= */
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 7px;
+  border: none;
+  background-color: #00b3b3;
+  color: #012b36;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #00ffff;
+}
+
+/* ===============================
+   Bottom Sign In Section
+================================= */
+.bottom-signin {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ffffff;   /* visible now */
+}
+
+.bottom-signin a {
+  color: #00ffff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bottom-signin a:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+/* ===============================
+   Responsive
+================================= */
+@media (max-width: 420px) {
+  .container {
+    padding: 22px;
+  }
+
+  .logo {
+    width: 130px;
+  }
+}

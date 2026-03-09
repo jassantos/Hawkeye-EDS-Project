@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Portal - Organizations</title>
+    <link rel="stylesheet" href="/hawkeye-eds/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 class="sidebar-title">HAWKEYE EDS</h2>
+
+        <div class="logo-box">
+            <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+        </div>
+
+  <ul class="menu">
+    <li><a href="/dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="/messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+    <li><a href="/CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="/Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+    <li><a href="/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+  </ul>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="topbar">
+            <h1>Customer Service Portal</h1>
+
+            <div class="search">
+                <input type="text" placeholder="Search" />
+                <button>🔍</button>
+            </div>
+
+            <div class="icons">
+                <div class="icon-btn" id="settingsBtn">⚙️</div>
+                <div class="icon-btn" id="notifyBtn">
+                    🔔<span class="badge">2</span>
+                </div>
+                <img src="assets/4.png" class="profile" alt="User" />
+            </div>
+
+            <!-- Settings dropdown -->
+            <div class="dropdown" id="settingsDropdown">
+                <p><a href="#">Profile Settings</a></p>
+                <p><a href="#">Theme Options</a></p>
+                <p><a href="#">Logout</a></p>
+            </div>
+
+            <!-- Notifications dropdown -->
+            <div class="dropdown" id="notifyDropdown">
+                <p>🔹 System alert: new update available</p>
+                <p>🔹 Ticket #241 resolved</p>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- School Header -->
+            <div class="school-header">
+                <div class="school-info">
+                    <img src="assets/school-logo.png" alt="School Logo" class="school-logo">
+                    <h2>Whitewater High School</h2>
+                </div>
+                <i class="fas fa-chevron-down dropdown-icon"></i>
+            </div>
+
+            <!-- Search Section -->
+            <div class="content-search">
+                <div class="search-container">
+                    <input type="text" placeholder="Search users" class="content-search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <button class="search-btn">Search</button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-container">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="select-all"></th>
+                            <th>Full Name <i class="fas fa-sort"></i></th>
+                            <th>Email <i class="fas fa-sort"></i></th>
+                            <th>Username <i class="fas fa-sort"></i></th>
+                            <th>Status <i class="fas fa-sort"></i></th>
+                            <th>Role <i class="fas fa-sort"></i></th>
+                            <th>Joined Date <i class="fas fa-sort"></i></th>
+                            <th>Last Active <i class="fas fa-sort"></i></th>
+                            <th>Actions <i class="fas fa-sort"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="user-cell">
+                                <img src="assets/user1.jpg" alt="John Smith" class="user-avatar-small">
+                                John Smith
+                            </td>
+                            <td>john.smith@gmail.com</td>
+                            <td>jonny77</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>Admin</td>
+                            <td>March 12, 2023</td>
+                            <td>1 minute ago</td>
+                            <td class="actions-cell">
+                                <i class="fas fa-edit action-icon"></i>
+                                <i class="fas fa-trash action-icon"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="user-cell">
+                                <img src="assets/user2.jpg" alt="Olivia Bennett" class="user-avatar-small">
+                                Olivia Bennett
+                            </td>
+                            <td>ollybon@gmail.com</td>
+                            <td>olly659</td>
+                            <td><span class="status-badge inactive">Inactive</span></td>
+                            <td>Teacher</td>
+                            <td>June 27, 2022</td>
+                            <td>1 month ago</td>
+                            <td class="actions-cell">
+                                <i class="fas fa-edit action-icon"></i>
+                                <i class="fas fa-trash action-icon"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="user-cell">
+                                <img src="assets/user3.jpg" alt="Daniel Warren" class="user-avatar-small">
+                                Daniel Warren
+                            </td>
+                            <td>dwarren3@gmail.com</td>
+                            <td>dwarren3</td>
+                            <td><span class="status-badge disabled">Disabled</span></td>
+                            <td>Teacher</td>
+                            <td>January 8, 2024</td>
+                            <td>4 days ago</td>
+                            <td class="actions-cell">
+                                <i class="fas fa-edit action-icon"></i>
+                                <i class="fas fa-trash action-icon"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="user-cell">
+                                <img src="assets/user4.jpg" alt="Chloe Hayes" class="user-avatar-small">
+                                Chloe Hayes
+                            </td>
+                            <td>chloehye@gmail.com</td>
+                            <td>chloehh</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                            <td>Manager</td>
+                            <td>October 5, 2021</td>
+                            <td>10 days ago</td>
+                            <td class="actions-cell">
+                                <i class="fas fa-edit action-icon"></i>
+                                <i class="fas fa-trash action-icon"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="user-cell">
+                                <img src="assets/user5.jpg" alt="Marcus Reed" class="user-avatar-small">
+                                Marcus Reed
+                            </td>
+                            <td>reeds777@gmail.com</td>
+                            <td>reeds7</td>
+                            <td><span class="status-badge suspended">Suspended</span></td>
+                            <td>Employee</td>
+                            <td>February 19, 2023</td>
+                            <td>3 months ago</td>
+                            <td class="actions-cell">
+                                <i class="fas fa-edit action-icon"></i>
+                                <i class="fas fa-trash action-icon"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="user-cell">
+                                <img src="assets/user6.jpg" alt="Emma Wilson" class="user-avatar-small">
+                                Emma Wilson
+                            </td>
+                            <td>emma.wilson@gmail.com</td>
+                            <td>emmaw85</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>Manager</td>
+                            <td>May 15, 2024</td>
+                            <td>2 hours ago</td>
+                            <td class="actions-cell">
+                                <i class="fas fa-edit action-icon"></i>
+                                <i class="fas fa-trash action-icon"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="user-cell">
+                                <img src="assets/user7.jpg" alt="David Brown" class="user-avatar-small">
+                                David Brown
+                            </td>
+                            <td>david.brown@gmail.com</td>
+                            <td>dbrown92</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                            <td>Security Guard</td>
+                            <td>August 3, 2024</td>
+                            <td>5 days ago</td>
+                            <td class="actions-cell">
+                                <i class="fas fa-edit action-icon"></i>
+                                <i class="fas fa-trash action-icon"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/hawkeye-eds/scripts/user.js"></script>
+</body>
+</html>

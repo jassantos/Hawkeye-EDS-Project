@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Personnel List - Hawkeye EDS</title>
+  <link rel="stylesheet" href="css/Personnel.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2 class="sidebar-title">HAWKEYE EDS</h2>
+    <div class="logo-box">
+      <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+    </div>
+
+  <ul class="menu">
+    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+    <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+  </ul>
+</div>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Customer Service Portal</h1>
+      <div class="search">
+        <input type="text" placeholder="Search" />
+        <button>🔍</button>
+      </div>
+      <div class="icons">
+        <div class="icon-btn" id="settingsBtn">⚙️</div>
+        <div class="icon-btn" id="notifyBtn">
+          🔔<span class="badge">2</span>
+        </div>
+        <img src="avatar/pic.png" class="profile" alt="User" />
+      </div>
+      <div class="dropdown" id="settingsDropdown">
+        <p><a href="#">Profile Settings</a></p>
+        <p><a href="#">Theme Options</a></p>
+        <p><a href="#">Logout</a></p>
+      </div>
+      <div class="dropdown" id="notifyDropdown">
+        <p>🔹 System alert: new update available</p>
+        <p>🔹 Ticket #241 resolved</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>Personnel List</h2>
+      <div class="list-controls">
+        <div class="search-and-button">
+          <div class="search-personnel">
+            <input type="text" placeholder="Search" id="searchPersonnel"/>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <button class="add-admin-btn" id="addAdminBtn">
+            <i class="fa-solid fa-plus"></i> Add New Admin
+          </button>
+        </div>
+      </div>
+
+      <div class="personnel-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name <i class="fa-solid fa-sort"></i></th>
+              <th>E-Mail <i class="fa-solid fa-sort"></i></th>
+              <th>Phone Number <i class="fa-solid fa-sort"></i></th>
+            </tr>
+          </thead>
+          <tbody id="personnelTableBody">
+            <tr data-firstname="Alyvia" data-lastname="Kelley" data-email="a.kelley@gmail.com" data-phone="(219) 555-0114" data-permission="Admin">
+              <td>1</td>
+              <td>Alyvia Kelley</td>
+              <td>a.kelley@gmail.com</td>
+              <td>(219) 555-0114</td>
+            </tr>
+            <tr data-firstname="Jaden" data-lastname="Nixon" data-email="jaden.n@gmail.com" data-phone="(704) 555-0127" data-permission="Manager">
+              <td>2</td>
+              <td>Jaden Nixon</td>
+              <td>jaden.n@gmail.com</td>
+              <td>(704) 555-0127</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/Personnel.js"></script>
+  <script>
+    // Add New Admin button click
+    document.getElementById('addAdminBtn').addEventListener('click', () => {
+      // Clear any previously stored selected person
+      localStorage.removeItem('selectedPerson');
+      // Redirect to ManagePersonnel page with empty form
+      window.location.href = 'ManagePersonnel.html';
+    });
+  </script>
+</body>
+</html>

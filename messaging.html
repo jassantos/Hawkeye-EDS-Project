@@ -1,0 +1,84 @@
+<!-- Author: Mihir Mistry (041105676) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Messages - Hawkeye EDS</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/messaging.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2 class="sidebar-title">HAWKEYE EDS</h2>
+
+  <div class="logo-box">
+    <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+  </div>
+
+  <ul class="menu">
+    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+    <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+  </ul>
+</div>
+
+
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <h1>Customer Service Portal</h1>
+
+      <div class="search">
+        <input type="text" placeholder="Search" />
+        <button>🔍</button>
+      </div>
+
+      <div class="icons">
+        <div class="icon-btn" id="settingsBtn">⚙️</div>
+        <div class="icon-btn" id="notifyBtn">
+          🔔<span class="badge">2</span>
+        </div>
+        <img src="assets/4.png" class="profile" alt="User" />
+      </div>
+
+      <!-- Settings dropdown -->
+      <div class="dropdown" id="settingsDropdown">
+        <p><a href="#">Profile Settings</a></p>
+        <p><a href="#">Theme Options</a></p>
+        <p><a href="#">Logout</a></p>
+      </div>
+
+      <!-- Notifications dropdown -->
+      <div class="dropdown" id="notifyDropdown">
+        <p>🔹 System alert: new update available</p>
+        <p>🔹 Ticket #241 resolved</p>
+      </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="content">
+  <h2>Messages</h2>
+  <p class="subtitle">Conversations</p>
+
+  <!-- This is where we mount the messaging UI -->
+  <div id="msg-mount" style="margin-top:12px;"></div>
+</div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/messaging.js"></script>
+  <script>
+  // Mount the messaging inner view inside the dashboard shell:
+  Messaging.init(document.getElementById('msg-mount'), { demo: true });
+  </script>
+</body>
+</html>

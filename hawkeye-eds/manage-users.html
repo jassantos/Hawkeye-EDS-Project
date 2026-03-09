@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Portal - Manage Users</title>
+    <link rel="stylesheet" href="/hawkeye-eds/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 class="sidebar-title">HAWKEYE EDS</h2>
+
+        <div class="logo-box">
+            <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+        </div>
+
+        <ul class="menu">
+            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+            <li><a href="user.html" class="active"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-bullhorn"></i><span>Ads</span></a></li>
+            <li><a href="#"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="topbar">
+            <h1>Customer Service Portal</h1>
+
+            <div class="search">
+                <input type="text" placeholder="Search" />
+                <button>🔍</button>
+            </div>
+
+            <div class="icons">
+                <div class="icon-btn" id="settingsBtn">⚙️</div>
+                <div class="icon-btn" id="notifyBtn">
+                    🔔<span class="badge">2</span>
+                </div>
+                <img src="assets/4.png" class="profile" alt="User" />
+            </div>
+
+            <!-- Settings dropdown -->
+            <div class="dropdown" id="settingsDropdown">
+                <p><a href="#">Profile Settings</a></p>
+                <p><a href="#">Theme Options</a></p>
+                <p><a href="#">Logout</a></p>
+            </div>
+
+            <!-- Notifications dropdown -->
+            <div class="dropdown" id="notifyDropdown">
+                <p>🔹 System alert: new update available</p>
+                <p>🔹 Ticket #241 resolved</p>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- School Header -->
+            <div class="school-header">
+                <div class="school-info">
+                    <img src="assets/school-logo.png" alt="School Logo" class="school-logo">
+                    <h2>Whitewater High School</h2>
+                </div>
+                <i class="fas fa-chevron-down dropdown-icon"></i>
+            </div>
+
+            <!-- Breadcrumb Navigation -->
+<div class="breadcrumb">
+    <a href="user.html"><i class="fas fa-arrow-left back-icon"></i></a>
+    <span class="breadcrumb-title">Manage Users</span>
+    <div class="breadcrumb-path">
+        <a href="user.html" class="breadcrumb-link">Dashboard</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Users</span>
+    </div>
+</div>
+
+
+            <!-- User Details Form -->
+            <div class="user-details-container">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" value="John Smith" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" value="john.smith@web-slate.com" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username*</label>
+                    <input type="text" id="username" value="jonny77" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="phone-input">
+                        <div class="country-code">
+                            <img src="assets/us-flag.png" alt="US Flag" class="flag-icon">
+                            <span>+44 20 7123 4567</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <div class="status-dropdown">
+                        <select id="status" name="status">
+                            <option value="active" selected>Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="pending">Pending</option>
+                            <option value="disabled">Disabled</option>
+                            <option value="suspended">Suspended</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-secondary" onclick="showDeleteModal()">Delete User</button>
+                    <button class="btn btn-primary" onclick="goToEditUser()">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/hawkeye-eds/scripts/user.js"></script>
+    <script src="/hawkeye-eds/scripts/manage-users.js"></script>
+</body>
+</html>

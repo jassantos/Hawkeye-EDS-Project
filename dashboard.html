@@ -1,0 +1,134 @@
+<!-- Author: Nabila Msiah (041146732) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Dashboard - Hawkeye EDS</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+<button class="menu-toggle" id="menuToggle">
+  <i class="fas fa-bars"></i>
+</button>
+
+<!-- Mobile Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2 class="sidebar-title">HAWKEYE EDS</h2>
+
+  <div class="logo-box">
+    <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+  </div>
+
+  <ul class="menu">
+    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+    <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+  </ul>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <div class="topbar">
+    <h1>Customer Service Portal</h1>
+
+    <div class="search">
+      <input type="text" placeholder="Search" />
+      <button>🔍</button>
+    </div>
+
+    <div class="icons">
+      <div class="icon-btn" id="settingsBtn">⚙️</div>
+      <div class="icon-btn" id="notifyBtn">
+        🔔<span class="badge">2</span>
+      </div>
+      <img  href="settings.html" src="assets/4.png" class="profile" alt="User" />
+    </div>
+
+    <!-- Settings dropdown -->
+    <div class="dropdown" id="settingsDropdown">
+      <p><a href="#">Profile Settings</a></p>
+      <p><a href="#">Theme Options</a></p>
+      <p><a href="#">Logout</a></p>
+    </div>
+
+    <!-- Notifications dropdown -->
+    <div class="dropdown" id="notifyDropdown">
+      <p>🔹 System alert: new update available</p>
+      <p>🔹 Ticket #241 resolved</p>
+    </div>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div class="content">
+    <h2>Dashboard</h2>
+    <p class="subtitle">This Month</p>
+
+    <div class="cards">
+      <div class="card high">System Wide High Alerts</div>
+      <div class="card medium">System Wide Medium Threat</div>
+      <div class="card info">School Shootings Prevented</div>
+    </div>
+
+    <div class="charts">
+      <div class="chart-box">
+        <h3>User Activity</h3>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-color usage"></span>
+            <span>Usage</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color provisions"></span>
+            <span>Provisions</span>
+          </div>
+        </div>
+        <canvas id="activityChart"></canvas>
+      </div>
+
+      <div class="chart-box">
+        <h3>Status</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="team">
+        <h3>Our Team</h3>
+        <div class="members">
+          <div>
+            <img src="assets/2.png" alt="CEO" />
+            <p>Live Back<br><span>CEO</span></p>
+          </div>
+          <div>
+            <img src="assets/1.png" alt="Director" />
+            <p>Bandy Press<br><span>Director</span></p>
+          </div>
+          <div>
+            <img src="assets/3.png" alt="Designer" />
+            <p>Workman<br><span>Designer</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-box small">
+        <h3>No of Users History</h3>
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

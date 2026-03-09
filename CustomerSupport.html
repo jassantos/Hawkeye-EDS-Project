@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Support - Hawkeye EDS</title>
+  <link rel="stylesheet" href="css/CustomerSupport.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2 class="sidebar-title">HAWKEYE EDS</h2>
+    <div class="logo-box">
+      <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+    </div>
+
+  <ul class="menu">
+    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+    <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+  </ul>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Customer Service Portal</h1>
+      <div class="search">
+        <input type="text" placeholder="Search" />
+        <button>🔍</button>
+      </div>
+      <div class="icons">
+        <div class="icon-btn" id="settingsBtn">⚙️</div>
+        <div class="icon-btn" id="notifyBtn">
+          🔔<span class="badge">2</span>
+        </div>
+        <img src="avatar/pic.png" class="profile" alt="User" />
+      </div>
+      <div class="dropdown" id="settingsDropdown">
+        <p><a href="#">Profile Settings</a></p>
+        <p><a href="#">Theme Options</a></p>
+        <p><a href="#">Logout</a></p>
+      </div>
+      <div class="dropdown" id="notifyDropdown">
+        <p>🔹 System alert: new update available</p>
+        <p>🔹 Ticket #241 resolved</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Top Controls Section -->
+      <div class="controls-section">
+        <div class="search-tickets">
+          <input type="text" placeholder="Search tickets" id="searchTickets" />
+          <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <button class="action-btn" id="searchBtn">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+        <div class="filter-group">
+          <div class="dropdown-filter">
+            <button class="filter-btn" id="priorityFilter">
+              Select Priority <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="filter-menu" id="priorityMenu">
+              <div class="filter-option" data-value="all">All Priorities</div>
+              <div class="filter-option" data-value="high">High Priority</div>
+              <div class="filter-option" data-value="medium">Medium Priority</div>
+              <div class="filter-option" data-value="low">Low Priority</div>
+            </div>
+          </div>
+          <div class="dropdown-filter">
+            <button class="filter-btn" id="weekFilter">
+              This Week <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="filter-menu" id="weekMenu">
+              <div class="filter-option" data-value="today">Today</div>
+              <div class="filter-option" data-value="week">This Week</div>
+              <div class="filter-option" data-value="month">This Month</div>
+              <div class="filter-option" data-value="all">All Time</div>
+            </div>
+          </div>
+        </div>
+        <button class="new-ticket-btn" id="newTicketBtn" onclick="window.location.href='CustomerSupportTicket.html'">
+        <i class="fa-regular fa-square-plus"></i> New Ticket
+         </button>
+      </div>
+
+      <!-- Tabs Section -->
+      <div class="tabs-section">
+        <div class="tab active" data-status="all">
+          <i class="fa-solid fa-ticket"></i> All Tickets
+        </div>
+        <div class="status-tabs">
+          <div class="status-tab" data-status="new">
+            <span class="status-dot new-dot"></span> New
+          </div>
+          <div class="status-tab" data-status="ongoing">
+            <span class="status-dot ongoing-dot"></span> On-Going
+          </div>
+          <div class="status-tab" data-status="resolved">
+            <span class="status-dot resolved-dot"></span> Resolved
+          </div>
+        </div>
+        <div class="priority-dropdown-tab">
+          <button class="priority-dropdown-btn" id="priorityDropdownBtn">
+            <span class="status-dot"></span>
+            <span id="selectedPriorityText">New Tickets</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="priority-dropdown-menu" id="priorityDropdownMenu">
+            <div class="priority-option" data-value="new">
+              <span class="status-dot new-dot"></span> New Tickets
+            </div>
+            <div class="priority-option" data-value="ongoing">
+              <span class="status-dot ongoing-dot"></span> On-Going Tickets
+            </div>
+            <div class="priority-option" data-value="resolved">
+              <span class="status-dot resolved-dot"></span> Resolved Tickets
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tickets List -->
+      <div class="tickets-container" id="ticketsContainer">
+        <!-- Ticket Item 1 -->
+        <div class="ticket-item" data-status="ongoing" data-priority="high">
+          <div class="ticket-header">
+            <div class="ticket-left">
+              <span class="status-dot ongoing-dot"></span>
+              <span class="ticket-id">Ticket# 2023-CS123</span>
+              <span class="priority-badge high">High Priority</span>
+            </div>
+            <div class="ticket-date">2025/06/19 12:45 AM</div>
+          </div>
+          <div class="ticket-title">How can I access premium features of the app?</div>
+          <div class="ticket-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+          </div>
+          <div class="ticket-footer">
+            <div class="ticket-author">
+              <img src="avatar/pic.png" alt="User" class="author-avatar" />
+              <span class="author-name">John Snow</span>
+            </div>
+            <button class="open-ticket-btn">Open Ticket</button>
+          </div>
+        </div>
+
+        <!-- Ticket Item 2 -->
+        <div class="ticket-item" data-status="new" data-priority="medium">
+          <div class="ticket-header">
+            <div class="ticket-left">
+              <span class="status-dot new-dot"></span>
+              <span class="ticket-id">Ticket# 2023-CS123</span>
+            </div>
+            <div class="ticket-date">2025/06/19 12:45 AM</div>
+          </div>
+          <div class="ticket-title">How can I access premium features of the app?</div>
+          <div class="ticket-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+          </div>
+          <div class="ticket-footer">
+            <div class="ticket-author">
+              <img src="avatar/pic.png" alt="User" class="author-avatar" />
+              <span class="author-name">John Snow</span>
+            </div>
+            <button class="open-ticket-btn">Open Ticket</button>
+          </div>
+        </div>
+
+        <!-- Ticket Item 3 -->
+        <div class="ticket-item" data-status="resolved" data-priority="low">
+          <div class="ticket-header">
+            <div class="ticket-left">
+              <span class="status-dot resolved-dot"></span>
+              <span class="ticket-id">Ticket# 2023-CS123</span>
+            </div>
+            <div class="ticket-date">2025/06/19 12:45 AM</div>
+          </div>
+          <div class="ticket-title">How can I access premium features of the app?</div>
+          <div class="ticket-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+          </div>
+          <div class="ticket-footer">
+            <div class="ticket-author">
+              <img src="avatar/pic.png" alt="User" class="author-avatar" />
+              <span class="author-name">John Snow</span>
+            </div>
+            <button class="open-ticket-btn">Open Ticket</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/CustomerSupport.js"></script>
+  
+
+</body>
+</html>

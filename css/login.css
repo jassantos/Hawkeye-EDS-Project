@@ -1,0 +1,196 @@
+/* ===============================
+   Reset
+================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===============================
+   New Animated Gradient Background
+================================= */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(-45deg, #1f1c2c, #928dab, #2b5876, #4e4376);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===============================
+   Overlay
+================================= */
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* ===============================
+   Login Box (Glass Style)
+================================= */
+.login-box {
+  background: rgba(20, 20, 30, 0.9);
+  border-radius: 14px;
+  padding: 40px 30px;
+  width: 340px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  color: white;
+}
+/* Logo */
+.logo {
+  width: 160px;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto;
+}
+
+/* Title */
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Labels */
+label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+  color: #dddddd;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 6px;
+  background: #2c2c3c;
+  color: white;
+  transition: 0.3s;
+}
+
+input::placeholder {
+  color: #aaaaaa;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 8px #00c9ff;
+}
+
+/* Password wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #bbbbbb;
+}
+
+/* ===============================
+   Login Button (Teal Style)
+================================= */
+.login-btn {
+  width: 100%;
+  background: #00c9a7;
+  border: none;
+  padding: 12px;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #00e6c3;
+  color: black;
+}
+
+/* Forgot */
+.forgot {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: #ff5e5e;
+  text-decoration: none;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   Signup Section
+================================= */
+.signup-text {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+  color: #dddddd;
+}
+
+.signup-link {
+  color: #ff9f43;   /* Orange highlight */
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  color: #ffb86c;
+  text-decoration: underline;
+}
+/* ===============================
+   OTP Single Horizontal Input
+================================= */
+.otp-single {
+  width: 200px;
+  font-size: 22px;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: #2c2c3c;
+  color: white;
+  border: none;
+  outline: none;
+  display: block;
+  margin: 0 auto 15px auto;
+  letter-spacing: 2px;
+}
+
+.otp-single::placeholder {
+  color: #aaaaaa;
+}
+
+.otp-single:focus {
+  box-shadow: 0 0 8px #00c9ff;
+}
+
+/* Center OTP section (optional) */
+.otp-container {
+  display: flex;
+  justify-content: center;
+}
