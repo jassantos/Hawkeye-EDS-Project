@@ -649,6 +649,7 @@ body {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #12A1BA;
 }
 
 .author-name {
@@ -748,3 +749,29 @@ body {
     width: 100%;
   }
 }
+
+/* Priority Badge Styles  */
+.priority-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.priority-badge.high {
+  background: #ffebee;
+  color: #e53935;
+}
+
+.priority-badge.medium {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.priority-badge.low {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+

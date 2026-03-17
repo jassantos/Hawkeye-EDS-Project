@@ -57,9 +57,15 @@ function createTicketElement(ticket) {
   const dotClass = ticket.status === 'new' ? 'new-dot' : 
                    ticket.status === 'ongoing' ? 'ongoing-dot' : 'resolved-dot';
   
-  // Show priority badge only for high priority
-  const priorityBadge = ticket.priority === 'high' ? 
-    '<span class="priority-badge high">High Priority</span>' : '';
+  // Show priority badge for ALL priorities with appropriate colors
+  let priorityBadge = '';
+  if (ticket.priority === 'high') {
+    priorityBadge = '<span class="priority-badge high">High Priority</span>';
+  } else if (ticket.priority === 'medium') {
+    priorityBadge = '<span class="priority-badge medium">Medium Priority</span>';
+  } else if (ticket.priority === 'low') {
+    priorityBadge = '<span class="priority-badge low">Low Priority</span>';
+  }
   
   // Truncate description
   const shortDesc = ticket.description.length > 150 ? 
@@ -148,7 +154,7 @@ function setupFilters() {
     });
   }
   
-  // Week filter
+  // Week filter - FIXED VERSION
   const weekFilter = document.getElementById('weekFilter');
   const weekMenu = document.getElementById('weekMenu');
   
@@ -160,8 +166,13 @@ function setupFilters() {
     
     weekMenu.querySelectorAll('.filter-option').forEach(option => {
       option.addEventListener('click', () => {
-        weekFilter.innerHTML = option.textContent + ' <i class="fa-solid fa-chevron-down"></i>';
+        const value = option.dataset.value;
+        const text = option.textContent;
+        weekFilter.innerHTML = text + ' <i class="fa-solid fa-chevron-down"></i>';
         weekMenu.classList.remove('active');
+        
+        // Store the selected time filter value
+        localStorage.setItem('selectedTimeFilter', value);
         applyFilters();
       });
     });
@@ -269,6 +280,32 @@ function setupSearch() {
   }
 }
 
+// Helper function to filter tickets by date
+function filterTicketsByDate(tickets, timeFilter) {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - today.getDay()); // Start of week (Sunday)
+  
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  
+  return tickets.filter(ticket => {
+    const ticketDate = new Date(ticket.createdAt);
+    
+    switch(timeFilter) {
+      case 'today':
+        return ticketDate >= today;
+      case 'week':
+        return ticketDate >= startOfWeek;
+      case 'month':
+        return ticketDate >= startOfMonth;
+      case 'all':
+      default:
+        return true;
+    }
+  });
+}
+
 // Apply all active filters
 function applyFilters() {
   const filters = {};
@@ -280,9 +317,11 @@ function applyFilters() {
   }
   
   // Get status filter from active tab
+  let statusFilter = null;
   const activeStatusTab = document.querySelector('.status-tab.active');
   if (activeStatusTab) {
-    filters.status = activeStatusTab.dataset.status;
+    statusFilter = activeStatusTab.dataset.status;
+    filters.status = statusFilter;
   } else {
     const allTicketsTab = document.querySelector('.tab[data-status="all"].active');
     if (allTicketsTab) {
@@ -300,7 +339,38 @@ function applyFilters() {
     filters.priority = 'low';
   }
   
-  loadAndDisplayTickets(filters);
+  // Get time filter from localStorage
+  const timeFilter = localStorage.getItem('selectedTimeFilter') || 'all';
+  
+  // First get tickets based on status/priority/search
+  let tickets = TicketSystem.filter(filters);
+  
+  // Then apply time filter
+  if (timeFilter !== 'all') {
+    tickets = filterTicketsByDate(tickets, timeFilter);
+  }
+  
+  // Display the filtered tickets
+  displayFilteredTickets(tickets);
+}
+
+// Display filtered tickets
+function displayFilteredTickets(tickets) {
+  const container = document.getElementById('ticketsContainer');
+  
+  if (!container) return;
+  
+  if (tickets.length === 0) {
+    container.innerHTML = '<div class="no-tickets">No tickets found matching your criteria.</div>';
+    return;
+  }
+  
+  container.innerHTML = '';
+  
+  tickets.forEach(ticket => {
+    const ticketEl = createTicketElement(ticket);
+    container.appendChild(ticketEl);
+  });
 }
 
 // Update statistics display

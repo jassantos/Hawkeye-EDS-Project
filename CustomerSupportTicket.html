@@ -6,6 +6,7 @@
 
   <title>Customer Support / Create Quick Ticket - Hawkeye EDS</title>
   <link rel="stylesheet" href="css/CustomerSupportTicket.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     /* Added minimal flex layout for side-by-side panels */
     .content-wrapper {
@@ -31,11 +32,11 @@
     </div>
 
   <ul class="menu">
-    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+    <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
     <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
     <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
-    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
-    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+    <li><a href="CustomerSupport.html" class="active"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+    <li><a href="#"><i class="fa-solid fa-bullhorn"></i><span>Ads</span></a></li>
     <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
     <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
   </ul>
@@ -157,7 +158,10 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit...
               </div>
               <div class="ticket-footer">
-                <span class="posted-time">Posted at 12:45 AM</span>
+                <div class="ticket-author">
+                  <img src="avatar/pic.png" alt="User" class="author-avatar" />
+                  <span class="author-name">John Snow</span>
+                </div>
                 <button class="open-ticket-btn">Open Ticket</button>
               </div>
             </div>
@@ -177,7 +181,10 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit...
               </div>
               <div class="ticket-footer">
-                <span class="posted-time">Posted at 12:45 AM</span>
+                <div class="ticket-author">
+                  <img src="avatar/pic.png" alt="User" class="author-avatar" />
+                  <span class="author-name">John Snow</span>
+                </div>
                 <button class="open-ticket-btn">Open Ticket</button>
               </div>
             </div>
@@ -196,7 +203,10 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit...
               </div>
               <div class="ticket-footer">
-                <span class="posted-time">Posted at 12:45 AM</span>
+                <div class="ticket-author">
+                  <img src="avatar/pic.png" alt="User" class="author-avatar" />
+                  <span class="author-name">John Snow</span>
+                </div>
                 <button class="open-ticket-btn">Open Ticket</button>
               </div>
             </div>
@@ -204,47 +214,54 @@
         </div>
 
         <!-- Right Side - Create Quick Ticket Form -->
-        <div class="create-ticket-side">
-          <div class="form-container">
-            <h2 class="form-title">Create Quick Ticket</h2>
-            <p class="form-subtitle">Write and address new queries and issues</p>
+        <div class="create-ticket-side" id="createTicketSide" style="display: block;">
+          <h2 class="form-title">Create Quick Ticket</h2>
+          <p class="form-subtitle">Write and address new queries and issues</p>
 
-            <form id="quickTicketForm">
-              <div class="form-group">
-                <label for="customerEmail">Customer Email</label>
-                <input type="email" id="customerEmail" placeholder="Type Email" required />
-              </div>
+          <form id="quickTicketForm">
+            <div class="form-group">
+              <label for="customerEmail">Customer Email</label>
+              <input type="email" id="customerEmail" placeholder="Type Email" required />
+            </div>
 
-              <div class="form-group">
-                <label for="ticketType">Request Ticket Type</label>
-                <select id="ticketType" required>
-                  <option value="">Choose Type</option>
-                  <option value="technical">Technical Support</option>
-                  <option value="billing">Billing Issue</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="feature">Feature Request</option>
-                </select>
-              </div>
+            <div class="form-group">
+              <label for="ticketSubject">Ticket Subject</label>
+              <input type="text" id="ticketSubject" placeholder="Brief summary of the issue" required />
+            </div>
 
-              <div class="form-group">
-                <label for="priorityStatus">Priority Status</label>
-                <select id="priorityStatus" required>
-                  <option value="">Select Status</option>
-                  <option value="high">High Priority</option>
-                  <option value="medium">Medium Priority</option>
-                  <option value="low">Low Priority</option>
-                </select>
-              </div>
+            <div class="form-group">
+              <label for="ticketType">Request Ticket Type</label>
+              <select id="ticketType" required>
+                <option value="">Choose Type</option>
+                <option value="technical">Technical Support</option>
+                <option value="billing">Billing Issue</option>
+                <option value="general">General Inquiry</option>
+                <option value="feature">Feature Request</option>
+              </select>
+            </div>
 
-              <div class="form-group">
-                <label for="ticketBody">Ticket Body</label>
-                <textarea id="ticketBody" rows="6" placeholder="Type ticket issue here..." required></textarea>
-              </div>
+            <div class="form-group">
+              <label for="priorityStatus">Priority Status</label>
+              <select id="priorityStatus" required>
+                <option value="">Select Status</option>
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
+              </select>
+            </div>
 
-              <button type="submit" class="submit-btn">Submit</button>
-            </form>
-          </div>
+            <div class="form-group">
+              <label for="ticketBody">Ticket Description</label>
+              <textarea id="ticketBody" rows="6" placeholder="Describe the issue in detail..." required></textarea>
+            </div>
+
+            <div class="form-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
+              <button type="button" class="cancel-btn" id="cancelTicketBtn" style="flex: 1; background: #f5f5f5; color: #666; border: 1px solid #ddd; padding: 10px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer;">Cancel</button>
+              <button type="submit" class="submit-btn" style="flex: 1; background: #12A1BA; color: white; border: none; padding: 10px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer;">Submit</button>
+            </div>
+          </form>
         </div>
+
       </div> <!-- end content-wrapper -->
     </div> <!-- end content -->
   </div> <!-- end main -->

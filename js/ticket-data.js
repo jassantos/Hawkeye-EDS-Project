@@ -72,6 +72,55 @@ const TicketSystem = (function() {
           createdAt: '2025-06-19T16:45:00'
         }
       ]
+    },
+    // Add a few more tickets with different dates for testing time filters
+    {
+      id: 'TK-1004',
+      ticketNumber: '2023-CS126',
+      customerEmail: 'emma.wilson@example.com',
+      customerName: 'Emma Wilson',
+      type: 'technical',
+      priority: 'high',
+      status: 'new',
+      subject: 'Cannot login to my account',
+      description: 'I keep getting "invalid credentials" error even after resetting my password.',
+      createdAt: new Date().toISOString(), // Today
+      updatedAt: new Date().toISOString(),
+      assignedTo: 'Support Agent',
+      attachments: [],
+      replies: []
+    },
+    {
+      id: 'TK-1005',
+      ticketNumber: '2023-CS127',
+      customerEmail: 'michael.brown@example.com',
+      customerName: 'Michael Brown',
+      type: 'billing',
+      priority: 'medium',
+      status: 'ongoing',
+      subject: 'Invoice not received',
+      description: 'I haven\'t received my invoice for last month. Can you please resend it?',
+      createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
+      updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      assignedTo: 'Billing Team',
+      attachments: [],
+      replies: []
+    },
+    {
+      id: 'TK-1006',
+      ticketNumber: '2023-CS128',
+      customerEmail: 'sarah.davis@example.com',
+      customerName: 'Sarah Davis',
+      type: 'feature',
+      priority: 'low',
+      status: 'resolved',
+      subject: 'Mobile app crash on startup',
+      description: 'The app crashes immediately when I try to open it on my Android phone.',
+      createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString(), // 25 days ago
+      updatedAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+      assignedTo: 'Development Team',
+      attachments: [],
+      replies: []
     }
   ];
 
@@ -215,6 +264,93 @@ const TicketSystem = (function() {
     return tickets;
   }
 
+  // Get statistics about tickets
+  function getStats() {
+    const tickets = loadTickets();
+    
+    // Count by priority
+    const highPriority = tickets.filter(t => t.priority === 'high').length;
+    const mediumPriority = tickets.filter(t => t.priority === 'medium').length;
+    const lowPriority = tickets.filter(t => t.priority === 'low').length;
+    
+    // Count by status
+    const newTickets = tickets.filter(t => t.status === 'new').length;
+    const ongoingTickets = tickets.filter(t => t.status === 'ongoing').length;
+    const resolvedTickets = tickets.filter(t => t.status === 'resolved').length;
+    
+    // Count by type
+    const technical = tickets.filter(t => t.type === 'technical').length;
+    const billing = tickets.filter(t => t.type === 'billing').length;
+    const feature = tickets.filter(t => t.type === 'feature').length;
+    const general = tickets.filter(t => t.type === 'general').length;
+    
+    return {
+      // Priority stats
+      highPriority,
+      mediumPriority,
+      lowPriority,
+      
+      // Status stats
+      new: newTickets,
+      ongoing: ongoingTickets,
+      resolved: resolvedTickets,
+      
+      // Type stats
+      technical,
+      billing,
+      feature,
+      general,
+      
+      // Total counts
+      total: tickets.length,
+      unassigned: tickets.filter(t => t.assignedTo === 'Unassigned').length
+    };
+  }
+
+  // Get tickets by date range
+  function getTicketsByDateRange(startDate, endDate) {
+    const tickets = loadTickets();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    return tickets.filter(ticket => {
+      const ticketDate = new Date(ticket.createdAt);
+      return ticketDate >= start && ticketDate <= end;
+    });
+  }
+
+  // Get today's tickets
+  function getTicketsToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    return getTicketsByDateRange(today, tomorrow);
+  }
+
+  // Get this week's tickets
+  function getTicketsThisWeek() {
+    const today = new Date();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay()); // Start from Sunday
+    startOfWeek.setHours(0, 0, 0, 0);
+    
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 7);
+    
+    return getTicketsByDateRange(startOfWeek, endOfWeek);
+  }
+
+  // Get this month's tickets
+  function getTicketsThisMonth() {
+    const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+    
+    return getTicketsByDateRange(startOfMonth, endOfMonth);
+  }
+
   // Public API
   return {
     getAll: getAllTickets,
@@ -222,6 +358,10 @@ const TicketSystem = (function() {
     create: createTicket,
     addReply: addReply,
     updateStatus: updateTicketStatus,
-    filter: filterTickets
+    filter: filterTickets,
+    getStats: getStats,
+    getTicketsToday: getTicketsToday,
+    getTicketsThisWeek: getTicketsThisWeek,
+    getTicketsThisMonth: getTicketsThisMonth
   };
 })();
