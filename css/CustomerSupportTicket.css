@@ -616,6 +616,27 @@ body {
   border-top: 1px solid #f0f0f0;
 }
 
+/* Ticket Author Styles */
+.ticket-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #12A1BA;
+}
+
+.author-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
 .open-ticket-btn {
   background: transparent;
   border: none;
@@ -812,3 +833,109 @@ textarea {
     width: 100%;
   }
 }
+/* Priority Badge Styles */
+.priority-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.priority-badge.high {
+  background: #ffebee;
+  color: #e53935;
+}
+
+.priority-badge.medium {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.priority-badge.low {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  flex: 1;
+  background: #f5f5f5;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cancel-btn:hover {
+  background: #e8e8e8;
+  border-color: #ccc;
+}
+
+.submit-btn {
+  flex: 1;
+  background: #12A1BA;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #0f8ea3;
+}
+
+/* Fix for sidebar icons */
+.menu i {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Ensure Font Awesome is loaded */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+/* Close form button */
+.close-form-btn {
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  padding: 0 8px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.close-form-btn:hover {
+  color: #e53935;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Hide form initially? You might want it visible by default */
+#createTicketSide {
+  display: block; /* Change to 'none' if you want it hidden initially */
+}
+

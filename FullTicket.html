@@ -3,23 +3,309 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/FullTicket.css" />
+    <style>
+      /* Additional styles that work with existing FullTicket.css */
+      .ticket-container {
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+      }
+      
+      .ticket-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      
+      .ticket-badges {
+        display: flex;
+        gap: 10px;
+      }
+      
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      
+      .status-new { background: #e3f2fd; color: #1976d2; }
+      .status-ongoing { background: #fff3e0; color: #f57c00; }
+      .status-resolved { background: #e8f5e9; color: #388e3c; }
+      
+      .priority-high { background: #ffebee; color: #d32f2f; }
+      .priority-medium { background: #fff3e0; color: #f57c00; }
+      .priority-low { background: #e8f5e9; color: #388e3c; }
+      
+      .ticket-meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+      
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: #555;
+      }
+      
+      .meta-item i {
+        width: 18px;
+        color: #12A1BA;
+      }
+      
+      .ticket-subject {
+        font-size: 18px;
+        font-weight: 600;
+        color: #012b36;
+        margin: 15px 0 10px;
+      }
+      
+      .ticket-body {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 8px;
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 20px;
+        border-left: 4px solid #12A1BA;
+      }
+      
+      .replies-section {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+      }
+      
+      .replies-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e0e0e0;
+        color: #012b36;
+      }
+      
+      .reply-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      
+      .agent-reply {
+        background: #f0f9ff;
+        border-left: 3px solid #12A1BA;
+      }
+      
+      .customer-reply {
+        background: #f5f5f5;
+        border-left: 3px solid #ff9800;
+      }
+      
+      .reply-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      
+      .reply-author {
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      
+      .reply-time {
+        font-size: 12px;
+        color: #999;
+      }
+      
+      .reply-message {
+        margin: 0;
+        line-height: 1.6;
+        color: #444;
+      }
+      
+      .date-separator {
+        text-align: center;
+        margin: 20px 0;
+      }
+      
+      .date-separator span {
+        background: #eef2f7;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #666;
+      }
+      
+      .reply-form-container {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        border: 2px solid #12A1BA;
+        box-shadow: 0 4px 12px rgba(18, 161, 186, 0.15);
+      }
+      
+      .form-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        color: #012b36;
+      }
+      
+      .status-selector {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      
+      .status-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 30px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        background: #f5f5f5;
+      }
+      
+      .status-option.selected {
+        border-color: #12A1BA;
+        background: #f0f9ff;
+      }
+      
+      .status-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      
+      .dot-new { background: #12A1BA; }
+      .dot-ongoing { background: #FFC107; }
+      .dot-resolved { background: #4CAF50; }
+      
+      .reply-textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        margin-bottom: 15px;
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+      }
+      
+      .reply-textarea:focus {
+        outline: none;
+        border-color: #12A1BA;
+        box-shadow: 0 0 0 3px rgba(18, 161, 186, 0.1);
+      }
+      
+      .form-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: flex-end;
+      }
+      
+      .btn-primary {
+        background: #12A1BA;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.3s;
+      }
+      
+      .btn-primary:hover {
+        background: #0f8ea3;
+      }
+      
+      .btn-secondary {
+        background: white;
+        color: #666;
+        border: 1px solid #ddd;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .btn-secondary:hover {
+        background: #f5f5f5;
+      }
+      
+      .no-replies {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+        background: #f9f9f9;
+        border-radius: 8px;
+      }
+
+      /* Override some FullTicket.css styles that might conflict */
+      .reply-detail-ticket {
+        background: #f0f2f5;
+      }
+      
+      .frame {
+        padding: 80px 40px 40px 40px;
+        background: #f0f2f5;
+      }
+      
+      /* Make sure the card doesn't hide content */
+      .card {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
       <h2 class="sidebar-title">HAWKEYE EDS</h2>
       <div class="logo-box">
-        <img src="Assets/Logo.png" class="logo" alt="Logo" />
+        <img src="assets/logo.png" class="logo" alt="Logo" />
       </div>
       <ul class="menu">
         <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
-        <li><a href="#"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+        <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
         <li><a href="#"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
-        <li><a href="#" class="active"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+        <li><a href="CustomerSupport.html" class="active"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
         <li><a href="#"><i class="fa-solid fa-bullhorn"></i><span>Ads</span></a></li>
-        <li><a href="#"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
-        <li><a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+        <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+        <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
       </ul>
     </div>
 
@@ -53,128 +339,102 @@
         </div>
       </div>
 
-      <!-- Main Card Container -->
-      <div class="card"></div>
+      <!-- Main Content Area -->
       <div class="frame">
-        <!-- Ticket Detail Section -->
-        <div class="group">
-          <div class="group-wrapper">
-            <div class="div">
-              <div class="group-2">
-                <div class="ticket-header-left">
-                  <div class="ellipse"></div>
-                  <div class="text-wrapper">Ticket# 2023-CS123</div>
-                </div>
-                <div class="text-wrapper-2">2025/08/18 12:45 AM</div>
-              </div>
-              <div class="frame-wrapper">
-                <div class="frame-2">
-                  <p class="p">How can I access premium features of the app?</p>
-                  <p class="lorem-ipsum-dolor">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
-                    dolor sit amet, consectetur adipiscing elit.<br /><br />Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit.<br /><br />Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit.
-                  </p>
-                </div>
-              </div>
+        <!-- Back button -->
+        <div style="margin-bottom: 20px;">
+          <a href="CustomerSupport.html" style="color: #12A1BA; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Tickets
+          </a>
+        </div>
+
+        <!-- Ticket Details Section -->
+        <div class="ticket-container">
+          <div class="ticket-header">
+            <h2 style="color: #012b36; font-size: 22px;" id="ticketNumber">Ticket# 2023-CS123</h2>
+            <div class="ticket-badges">
+              <span class="status-badge status-ongoing" id="statusBadge">
+                <span class="status-dot dot-ongoing"></span>
+                On-Going
+              </span>
+              <span class="status-badge priority-high" id="priorityBadge">High Priority</span>
             </div>
+          </div>
+          
+          <div class="ticket-meta">
+            <div class="meta-item">
+              <i class="fa-regular fa-envelope"></i>
+              <span id="customerEmail">john.snow@example.com</span>
+            </div>
+            <div class="meta-item">
+              <i class="fa-regular fa-calendar"></i>
+              <span id="createdDate">2025/06/19 12:45 AM</span>
+            </div>
+            <div class="meta-item">
+              <i class="fa-regular fa-clock"></i>
+              <span id="updatedDate">Updated: 2025/06/20 09:30 AM</span>
+            </div>
+            <div class="meta-item">
+              <i class="fa-regular fa-user"></i>
+              <span id="assignedTo">Assigned to: Support Agent</span>
+            </div>
+          </div>
+          
+          <div class="ticket-subject" id="ticketSubject">How can I access premium features of the app?</div>
+          
+          <div class="ticket-body" id="ticketDescription">
+            I recently upgraded to premium but cannot access the advanced features. The payment was successful but my account still shows basic tier. I have tried logging out and back in, clearing cache, and reinstalling the app. Nothing works.
           </div>
         </div>
 
-        <!-- Reply to Ticket Section -->
-        <div class="reply-ticket-box">
-          <div class="rectangle"></div>
+        <!-- Support Log History Section -->
+        <div class="replies-section">
+          <div class="replies-title">
+            <i class="fa-regular fa-message" style="color: #12A1BA;"></i>
+            <h3 style="margin: 0;">Support Log History</h3>
+          </div>
+          <div id="repliesContainer">
+            <!-- Replies will be loaded here -->
+          </div>
+        </div>
+
+        <!-- Reply Form Section -->
+        <div class="reply-form-container">
+          <div class="form-title">
+            <i class="fa-regular fa-pen-to-square" style="color: #12A1BA; font-size: 20px;"></i>
+            <h3 style="margin: 0;">Write Your Reply</h3>
+          </div>
           
-          <div class="tittle">
-            <div class="text-wrapper-6">Reply to Ticket</div>
-          </div>
-
-          <div class="frame-3">
-            <div class="content-2">
-              <div class="text-wrapper-7">Customer Email</div>
-              <div class="input-area-2">
-                <div class="text-wrapper-8">xsasyd@gmail.com</div>
-              </div>
+          <div class="status-selector" id="statusSelector">
+            <div class="status-option selected" data-status="ongoing">
+              <span class="status-dot dot-ongoing"></span>
+              On-Going
             </div>
-
-            <div class="content-2">
-              <div class="text-wrapper-9">Request Ticket Type</div>
-              <div class="input-area-3">
-                <div class="text-wrapper-10">Deposit Issue</div>
-                <i class="fas fa-chevron-down"></i>
-              </div>
+            <div class="status-option" data-status="resolved">
+              <span class="status-dot dot-resolved"></span>
+              Resolved
             </div>
-
-            <div class="content-3">
-              <div class="text-wrapper-11">Status</div>
-              <div class="input-area-4">
-                <div class="ellipse-2"></div>
-                <div class="text-wrapper-12">On-Going</div>
-                <i class="fas fa-chevron-down"></i>
-              </div>
-            </div>
-
-            <div class="role-dropdown">
-              <div class="role">Escalate Ticket To</div>
-              <div class="select-wrapper">
-                <div class="select">
-                  <div class="select-an-item">Admin</div>
-                  <i class="fas fa-chevron-down"></i>
-                </div>
-              </div>
+            <div class="status-option" data-status="new">
+              <span class="status-dot dot-new"></span>
+              New
             </div>
           </div>
-
-          <div class="content">
-            <div class="text-wrapper-4">Ticket Body</div>
-            <div class="input-area">
-              <div class="text-wrapper-5">Type ticket issue here..</div>
-            </div>
-          </div>
-
-          <div class="button-container">
-            <button type="button" class="cancel-button">Cancel</button>
-            <button type="submit" class="button">
-              <div class="text-wrapper-3">Submit Reply</div>
+          
+          <textarea class="reply-textarea" id="replyMessage" placeholder="Type your reply here... Be specific and helpful."></textarea>
+          
+          <div class="form-actions">
+            <button class="btn-secondary" id="cancelReply">
+              <i class="fa-regular fa-circle-xmark"></i> Cancel
+            </button>
+            <button class="btn-primary" id="submitReply">
+              <i class="fa-regular fa-paper-plane"></i> Send Reply
             </button>
           </div>
         </div>
       </div>
     </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const settingsBtn = document.getElementById('settingsBtn');
-      const settingsDropdown = document.getElementById('settingsDropdown');
-      const notifyBtn = document.getElementById('notifyBtn');
-      const notifyDropdown = document.getElementById('notifyDropdown');
-
-      if (settingsBtn && settingsDropdown) {
-        settingsBtn.addEventListener('click', e => {
-          e.stopPropagation();
-          settingsDropdown.style.display = settingsDropdown.style.display === 'flex' ? 'none' : 'flex';
-          if (notifyDropdown) notifyDropdown.style.display = 'none';
-        });
-      }
-
-      if (notifyBtn && notifyDropdown) {
-        notifyBtn.addEventListener('click', e => {
-          e.stopPropagation();
-          notifyDropdown.style.display = notifyDropdown.style.display === 'flex' ? 'none' : 'flex';
-          if (settingsDropdown) settingsDropdown.style.display = 'none';
-        });
-      }
-
-      document.addEventListener('click', () => {
-        if (settingsDropdown) settingsDropdown.style.display = 'none';
-        if (notifyDropdown) notifyDropdown.style.display = 'none';
-      });
-    });
-    </script>
+    <script src="js/ticket-data.js"></script>
+    <script src="js/FullTicket.js"></script>
   </body>
 </html>
