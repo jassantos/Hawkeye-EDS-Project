@@ -20,10 +20,14 @@
 }
 /* Search lens inside input */
 .msg .msg-search .lens{
-  position:absolute; right:16px; top:50%;
+  position:absolute;
+  left:14px;
+  top:50%;
   transform:translateY(-50%);
-  color:#9ca3af; /* light grey like figma */
-  display:inline-flex; align-items:center; justify-content:center;
+  color:#9ca3af;
+  display:flex;
+  align-items:center;
+  pointer-events:none;
 }
 
 /* Header tools on the right: New Client pill + View Profile link */
@@ -81,10 +85,99 @@
 
 .msg .msg-search{ position:relative; padding:0 4px 10px }
 .msg .msg-search input{
-  width:100%; background:#fff; border:1px solid var(--msg-line); border-radius:999px;
-  padding:10px 40px 10px 14px; font-size:14px; outline:none;
+  padding:10px 14px 10px 40px; /* left space for icon */
 }
-.msg .msg-search svg{ position:absolute; right:18px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:#7b8aa1 }
+
+/* Overlay */
+.msg .msg-profile-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(15, 23, 42, 0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.2s ease;
+  z-index:999;
+}
+
+.msg .msg-profile-modal.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Bigger card */
+.msg .msg-profile-card{
+  background:#fff;
+  border-radius:20px;
+  padding:28px;
+  width:420px;              /* ⬅️ bigger */
+  max-width:90%;
+  box-shadow:var(--msg-shadow);
+  position:relative;
+}
+
+/* Close button */
+.msg .msg-close{
+  position:absolute;
+  top:14px;
+  right:16px;
+  border:none;
+  background:none;
+  font-size:22px;
+  cursor:pointer;
+  color:#667085;
+}
+
+/* Header layout */
+.msg .msg-profile-header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:20px;
+}
+
+.msg .msg-profile-header h2{
+  margin:0;
+  font-size:20px;
+}
+
+.msg .msg-profile-header p{
+  margin:2px 0 0;
+  color:#667085;
+  font-size:14px;
+}
+
+/* Avatar */
+.msg .msg-profile-avatar{
+  width:70px;
+  height:70px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-weight:800;
+  font-size:22px;
+}
+
+/* Body fields */
+.msg .msg-profile-body{
+  display:grid;
+  gap:14px;
+}
+
+.msg .field label{
+  font-size:12px;
+  color:#98a2b3;
+  display:block;
+}
+
+.msg .field p{
+  margin:2px 0 0;
+  font-size:14px;
+  font-weight:500;
+}
 
 .msg .msg-list{ list-style:none; margin:0; padding:0; overflow:auto; border-top:1px solid var(--msg-line); }
 .msg .msg-item{
