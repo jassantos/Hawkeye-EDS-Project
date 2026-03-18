@@ -1,416 +1,417 @@
-// scripts/edit-user.js - With data persistence
+// Edit User Page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    initializeEditUserPage();
+    console.log('Edit-user.js loaded');
+    checkIfNewUser();
     loadUserData();
+    setupEventListeners();
+    setupPasswordStrength();
 });
 
-function initializeEditUserPage() {
-    setupFormValidation();
-    setupStatusDropdown();
-    setupBasicNavigation();
-    console.log('Edit User page initialized');
+// Check if we're creating a new user
+function checkIfNewUser() {
+    const isNewUser = localStorage.getItem('newUserMode') === 'true';
+    const pageTitle = document.querySelector('.breadcrumb-title');
+    
+    if (isNewUser) {
+        if (pageTitle) {
+            pageTitle.textContent = 'Add New User';
+        }
+        setupNewUserForm();
+    }
 }
 
-// Load user data from storage or use defaults
+// Load user data from localStorage
 function loadUserData() {
-    const userData = getUserData();
-    populateForm(userData);
-}
-
-function getUserData() {
-    const savedData = localStorage.getItem('currentUser');
-    if (savedData) {
-        return JSON.parse(savedData);
+    const userData = JSON.parse(localStorage.getItem('editingUser') || '{}');
+    
+    // If no user data, check if we're creating a new user
+    if (Object.keys(userData).length === 0) {
+        return;
     }
     
-    // Default user data if none saved
-    return {
-        firstName: 'John',
-        lastName: 'Smith',
-        email: 'john.smith@gmail.com',
-        phone: '+44 20 7123 4567',
-        role: 'admin',
-        status: 'active',
-        month: 'september',
-        day: '20',
-        year: '2023'
-    };
-}
-
-function populateForm(userData) {
-    document.getElementById('firstName').value = userData.firstName || 'John';
-    document.getElementById('lastName').value = userData.lastName || 'Smith';
-    document.getElementById('emailEdit').value = userData.email || 'john.smith@gmail.com';
-    document.querySelector('.phone-field').value = userData.phone || '+44 20 7123 4567';
-    document.getElementById('role').value = userData.role || 'admin';
-    document.getElementById('statusEdit').value = userData.status || 'active';
-    document.getElementById('month').value = userData.month || 'september';
-    document.getElementById('day').value = userData.day || '20';
-    document.getElementById('year').value = userData.year || '2023';
+    console.log('Loading user data:', userData);
+    
+    // Populate form fields
+    document.getElementById('firstName').value = userData.firstName || '';
+    document.getElementById('lastName').value = userData.lastName || '';
+    document.getElementById('emailEdit').value = userData.email || '';
+    document.getElementById('username').value = userData.username || '';
+    document.getElementById('phone').value = userData.phone || '+1 (555) 123-4567';
+    
+    // Set role
+    const roleSelect = document.getElementById('role');
+    if (userData.role && roleSelect) {
+        for (let i = 0; i < roleSelect.options.length; i++) {
+            if (roleSelect.options[i].value.toLowerCase() === userData.role.toLowerCase()) {
+                roleSelect.selectedIndex = i;
+                break;
+            }
+        }
+    }
+    
+    // Set status
+    const statusSelect = document.getElementById('statusEdit');
+    if (userData.status && statusSelect) {
+        for (let i = 0; i < statusSelect.options.length; i++) {
+            if (statusSelect.options[i].value.toLowerCase() === userData.status.toLowerCase()) {
+                statusSelect.selectedIndex = i;
+                break;
+            }
+        }
+    }
     
     // Update status color
-    updateStatusColor(document.getElementById('statusEdit'));
+    updateStatusColor();
 }
 
-// Form Validation
-function setupFormValidation() {
-    const form = document.querySelector('.edit-user-form');
-    const requiredFields = form.querySelectorAll('[required]');
+// Setup new user form (clear all fields)
+function setupNewUserForm() {
+    document.getElementById('firstName').value = '';
+    document.getElementById('lastName').value = '';
+    document.getElementById('emailEdit').value = '';
+    document.getElementById('username').value = '';
+    document.getElementById('phone').value = '';
     
-    requiredFields.forEach(field => {
-        field.addEventListener('blur', function() {
-            validateField(this);
-        });
-    });
+    // Set default selections
+    document.getElementById('role').selectedIndex = 0;
+    document.getElementById('statusEdit').selectedIndex = 0;
+    
+    // Update status color for default (active)
+    updateStatusColor();
 }
 
-function validateField(field) {
-    const value = field.value.trim();
-    
-    if (!value) {
-        showFieldError(field, 'This field is required');
-        return false;
+// Setup all event listeners
+function setupEventListeners() {
+    const form = document.getElementById('editUserForm');
+    if (form) {
+        form.addEventListener('submit', handleFormSubmit);
     }
     
-    if (field.type === 'email' && !isValidEmail(value)) {
-        showFieldError(field, 'Please enter a valid email address');
-        return false;
+    const statusSelect = document.getElementById('statusEdit');
+    if (statusSelect) {
+        statusSelect.addEventListener('change', updateStatusColor);
     }
     
-    clearFieldError(field);
-    return true;
-}
-
-function showFieldError(field, message) {
-    clearFieldError(field);
-    
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'field-error';
-    errorDiv.textContent = message;
-    errorDiv.style.cssText = `
-        color: #dc3545;
-        font-size: 12px;
-        margin-top: 5px;
-    `;
-    
-    field.parentNode.appendChild(errorDiv);
-    field.style.borderColor = '#dc3545';
-}
-
-function clearFieldError(field) {
-    const existingError = field.parentNode.querySelector('.field-error');
-    if (existingError) {
-        existingError.remove();
+    const resetBtn = document.getElementById('resetPasswordBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', handleResetPassword);
     }
-    field.style.borderColor = '#ddd';
+    
+    const unlockBtn = document.getElementById('unlockUserBtn');
+    if (unlockBtn) {
+        unlockBtn.addEventListener('click', handleUnlockUser);
+    }
+    
+    // Real-time validation
+    const emailInput = document.getElementById('emailEdit');
+    if (emailInput) {
+        emailInput.addEventListener('blur', validateEmail);
+    }
+    
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('blur', validatePhone);
+    }
 }
 
+// Update status dropdown color based on selection
+function updateStatusColor() {
+    const statusSelect = document.getElementById('statusEdit');
+    if (!statusSelect) return;
+    
+    const value = statusSelect.value;
+    const colors = {
+        'active': '#e8f5e9',
+        'inactive': '#fff3e0',
+        'pending': '#e3f2fd',
+        'disabled': '#ffebee',
+        'suspended': '#f3e5f5'
+    };
+    const textColors = {
+        'active': '#388e3c',
+        'inactive': '#f57c00',
+        'pending': '#1976d2',
+        'disabled': '#d32f2f',
+        'suspended': '#7b1fa2'
+    };
+    
+    statusSelect.style.backgroundColor = colors[value] || '#e8f5e9';
+    statusSelect.style.color = textColors[value] || '#388e3c';
+    statusSelect.style.fontWeight = '500';
+}
+
+// Handle form submission
+function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('emailEdit').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const role = document.getElementById('role').value;
+    const status = document.getElementById('statusEdit').value;
+    
+    // Validate required fields
+    if (!firstName || !lastName || !email) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    // Validate email
+    if (!isValidEmail(email)) {
+        showNotification('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Validate phone (optional)
+    if (phone && !isValidPhone(phone)) {
+        showNotification('Please enter a valid phone number', 'error');
+        return;
+    }
+    
+    // Get existing users
+    const users = JSON.parse(localStorage.getItem('hawkeye_users') || '[]');
+    
+    // Check if editing existing user or creating new
+    const editingUser = JSON.parse(localStorage.getItem('editingUser') || '{}');
+    const isNewUser = localStorage.getItem('newUserMode') === 'true';
+    
+    if (editingUser.id && !isNewUser) {
+        // Update existing user
+        const index = users.findIndex(u => u.id === editingUser.id);
+        if (index !== -1) {
+            users[index] = {
+                ...users[index],
+                firstName,
+                lastName,
+                email,
+                username: username || generateUsername(firstName, lastName),
+                phone,
+                role,
+                status,
+                lastActive: 'Just now'
+            };
+            showNotification('User updated successfully!', 'success');
+        }
+    } else {
+        // Create new user
+        const newUser = {
+            id: generateUserId(users),
+            firstName,
+            lastName,
+            email,
+            username: username || generateUsername(firstName, lastName),
+            phone: phone || '',
+            status,
+            role,
+            joinedDate: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+            lastActive: 'Just now',
+            avatar: 'assets/4.png'
+        };
+        users.push(newUser);
+        showNotification('New user created successfully!', 'success');
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('hawkeye_users', JSON.stringify(users));
+    
+    // Clear editing data and new user mode
+    localStorage.removeItem('editingUser');
+    localStorage.removeItem('newUserMode');
+    
+    // Redirect back to user list
+    setTimeout(() => {
+        window.location.href = 'user.html';
+    }, 1500);
+}
+
+// Generate unique user ID
+function generateUserId(users) {
+    const maxId = users.reduce((max, user) => {
+        const num = parseInt(user.id.split('-')[1]) || 0;
+        return Math.max(max, num);
+    }, 0);
+    
+    const newNum = maxId + 1;
+    return `USR-${String(newNum).padStart(3, '0')}`;
+}
+
+// Generate username from name
+function generateUsername(firstName, lastName) {
+    const base = (firstName + lastName).toLowerCase().replace(/[^a-z]/g, '');
+    const random = Math.floor(Math.random() * 1000);
+    return base + random;
+}
+
+// Validate email
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// Status Dropdown Styling
-function setupStatusDropdown() {
-    const statusSelect = document.getElementById('statusEdit');
-    if (statusSelect) {
-        statusSelect.addEventListener('change', function() {
-            updateStatusColor(this);
-        });
-        
-        // Initialize with correct color
-        updateStatusColor(statusSelect);
+// Validate phone number
+function isValidPhone(phone) {
+    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    return phoneRegex.test(phone);
+}
+
+// Validate email field
+function validateEmail() {
+    const email = document.getElementById('emailEdit').value.trim();
+    const errorElement = document.getElementById('emailError') || createErrorElement('emailEdit');
+    
+    if (!email) {
+        showFieldError('emailEdit', 'Email is required', errorElement);
+        return false;
+    } else if (!isValidEmail(email)) {
+        showFieldError('emailEdit', 'Please enter a valid email address', errorElement);
+        return false;
+    } else {
+        hideFieldError('emailEdit', errorElement);
+        return true;
     }
 }
 
-function updateStatusColor(select) {
-    const value = select.value;
-    const colors = {
-        'active': '#27ae60',
-        'inactive': '#e67e22', 
-        'pending': '#2c3e50',
-        'disabled': '#c0392b',
-        'suspended': '#e67e22'
-    };
+// Validate phone field
+function validatePhone() {
+    const phone = document.getElementById('phone').value.trim();
+    const errorElement = document.getElementById('phoneError') || createErrorElement('phone');
     
-    select.style.backgroundColor = colors[value] || colors.active;
-}
-
-// Navigation Functions
-function setupBasicNavigation() {
-    const settingsIcon = document.querySelector('.settings-icon');
-    const notificationIcon = document.querySelector('.notification-icon');
-    
-    if (settingsIcon) {
-        settingsIcon.addEventListener('click', function() {
-            showNotification('Settings coming soon', 'info');
-        });
-    }
-    
-    if (notificationIcon) {
-        notificationIcon.addEventListener('click', function() {
-            showNotification('You have 4 notifications', 'info');
-        });
+    if (phone && !isValidPhone(phone)) {
+        showFieldError('phone', 'Please enter a valid phone number', errorElement);
+        return false;
+    } else {
+        hideFieldError('phone', errorElement);
+        return true;
     }
 }
 
-// Navigation functions (called from HTML onclick)
-function goBack() {
-    window.location.href = 'manage-users.html';
+// Create error element for a field
+function createErrorElement(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorDiv = document.createElement('div');
+    errorDiv.id = fieldId + 'Error';
+    errorDiv.className = 'field-error';
+    errorDiv.style.cssText = `
+        color: #d32f2f;
+        font-size: 12px;
+        margin-top: 4px;
+    `;
+    field.parentNode.appendChild(errorDiv);
+    return errorDiv;
 }
 
-function goToIndex() {
-    window.location.href = 'index.html';
+// Show field error
+function showFieldError(fieldId, message, errorElement) {
+    const field = document.getElementById(fieldId);
+    field.style.borderColor = '#d32f2f';
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
 }
 
-function goToManageUsers() {
-    window.location.href = 'manage-users.html';
+// Hide field error
+function hideFieldError(fieldId, errorElement) {
+    const field = document.getElementById(fieldId);
+    field.style.borderColor = '#d1d5db';
+    errorElement.style.display = 'none';
 }
 
-function cancelEdit() {
-    if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
-        window.location.href = 'manage-users.html';
-    }
-}
-
-// Save User Changes - WITH DATA PERSISTENCE
-function saveUserChanges(event) {
-    event.preventDefault();
+// Handle reset password
+function handleResetPassword() {
+    const email = document.getElementById('emailEdit').value.trim();
     
-    const form = event.target;
-    const requiredFields = form.querySelectorAll('[required]');
-    let isValid = true;
-    
-    // Validate all required fields
-    requiredFields.forEach(field => {
-        if (!validateField(field)) {
-            isValid = false;
-        }
-    });
-    
-    if (!isValid) {
-        showNotification('Please fill in all required fields correctly', 'error');
+    if (!email) {
+        showNotification('Please enter an email address first', 'warning');
         return;
     }
     
-    // Show loading state
-    const saveBtn = form.querySelector('button[type="submit"]');
-    const originalText = saveBtn.textContent;
-    saveBtn.textContent = 'Saving...';
-    saveBtn.disabled = true;
-    
-    showNotification('Saving user changes...', 'info');
-    
-    // Get form data
-    const formData = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('emailEdit').value,
-        phone: document.querySelector('.phone-field').value,
-        role: document.getElementById('role').value,
-        status: document.getElementById('statusEdit').value,
-        month: document.getElementById('month').value,
-        day: document.getElementById('day').value,
-        year: document.getElementById('year').value
-    };
-    
-    // Simulate API call
-    setTimeout(() => {
-        // Save to localStorage
-        localStorage.setItem('currentUser', JSON.stringify(formData));
-        
-        // Also update the user list data
-        updateUserInList(formData);
-        
-        console.log('User data saved:', formData);
-        
-        // Restore button
-        saveBtn.textContent = originalText;
-        saveBtn.disabled = false;
-        
-        showNotification('User updated successfully!', 'success');
-        
-        // Redirect back to manage users after delay
-        setTimeout(() => {
-            window.location.href = 'manage-users.html';
-        }, 1500);
-        
-    }, 2000);
+    if (confirm(`Are you sure you want to reset the password for ${email}?`)) {
+        showNotification(`Password reset email sent to ${email}`, 'success');
+    }
 }
 
-// Update user in the user list storage
-function updateUserInList(userData) {
-    // Get existing users or create default list
-    let userList = JSON.parse(localStorage.getItem('userList') || '[]');
+// Handle unlock user
+function handleUnlockUser() {
+    const firstName = document.getElementById('firstName').value.trim();
     
-    if (userList.length === 0) {
-        // Initialize with default users if empty
-        userList = [
-            {
-                id: 1,
-                firstName: 'John',
-                lastName: 'Smith',
-                email: 'john.smith@gmail.com',
-                username: 'jonny77',
-                status: 'active',
-                role: 'Admin',
-                joinedDate: 'March 12, 2023',
-                lastActive: '1 minute ago'
-            },
-            {
-                id: 2,
-                firstName: 'Olivia',
-                lastName: 'Bennett',
-                email: 'ollybon@gmail.com',
-                username: 'olly659',
-                status: 'inactive',
-                role: 'Teacher',
-                joinedDate: 'June 27, 2022',
-                lastActive: '1 month ago'
-            },
-            {
-                id: 3,
-                firstName: 'Daniel',
-                lastName: 'Warren',
-                email: 'dwarren3@gmail.com',
-                username: 'dwarren3',
-                status: 'disabled',
-                role: 'Teacher',
-                joinedDate: 'January 8, 2024',
-                lastActive: '4 days ago'
-            },
-            {
-                id: 4,
-                firstName: 'Chloe',
-                lastName: 'Hayes',
-                email: 'chloehye@gmail.com',
-                username: 'chloehh',
-                status: 'pending',
-                role: 'Manager',
-                joinedDate: 'October 5, 2021',
-                lastActive: '10 days ago'
-            },
-            {
-                id: 5,
-                firstName: 'Marcus',
-                lastName: 'Reed',
-                email: 'reeds777@gmail.com',
-                username: 'reeds7',
-                status: 'suspended',
-                role: 'Employee',
-                joinedDate: 'February 19, 2023',
-                lastActive: '3 months ago'
-            },
-            {
-                id: 6,
-                firstName: 'Emma',
-                lastName: 'Wilson',
-                email: 'emma.wilson@gmail.com',
-                username: 'emmaw85',
-                status: 'active',
-                role: 'Manager',
-                joinedDate: 'May 15, 2024',
-                lastActive: '2 hours ago'
-            },
-            {
-                id: 7,
-                firstName: 'David',
-                lastName: 'Brown',
-                email: 'david.brown@gmail.com',
-                username: 'dbrown92',
-                status: 'pending',
-                role: 'Security Guard',
-                joinedDate: 'August 3, 2024',
-                lastActive: '5 days ago'
-            }
-        ];
+    if (!firstName) {
+        showNotification('Please enter user information first', 'warning');
+        return;
     }
     
-    // Update the first user (John Smith) with new data
-    const userIndex = userList.findIndex(user => user.id === 1);
-    if (userIndex !== -1) {
-        userList[userIndex] = {
-            ...userList[userIndex],
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            status: userData.status,
-            role: userData.role
-        };
+    if (confirm(`Are you sure you want to unlock this user account?`)) {
+        // Change status to active
+        const statusSelect = document.getElementById('statusEdit');
+        if (statusSelect) {
+            statusSelect.value = 'active';
+            updateStatusColor();
+        }
+        showNotification('User account unlocked successfully', 'success');
     }
-    
-    // Save updated list
-    localStorage.setItem('userList', JSON.stringify(userList));
 }
 
-// Password action buttons
-document.addEventListener('DOMContentLoaded', function() {
-    const resetPasswordBtn = document.querySelector('.password-actions .btn-info:first-child');
-    const unlockUserBtn = document.querySelector('.password-actions .btn-info:last-child');
-    
-    if (resetPasswordBtn) {
-        resetPasswordBtn.addEventListener('click', function() {
-            if (confirm('Are you sure you want to reset the password for this user?')) {
-                showNotification('Password reset email sent to user', 'success');
-            }
-        });
-    }
-    
-    if (unlockUserBtn) {
-        unlockUserBtn.addEventListener('click', function() {
-            showNotification('User account unlocked successfully', 'success');
-        });
-    }
-});
+// Setup password strength indicator
+function setupPasswordStrength() {
+    // This would be used if we add password fields to edit user
+    console.log('Password strength indicator ready');
+}
 
-// Notification system
+// Show notification
 function showNotification(message, type = 'info') {
-    const existingNotifications = document.querySelectorAll('.notification');
-    existingNotifications.forEach(notif => notif.remove());
+    // Remove existing notification
+    const existing = document.querySelector('.edit-user-notification');
+    if (existing) existing.remove();
     
     const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
+    notification.className = `edit-user-notification ${type}`;
     
-    const bgColors = {
-        success: '#27ae60',
-        error: '#c0392b',
-        info: '#3498db',
-        warning: '#f39c12'
+    const colors = {
+        success: '#4CAF50',
+        error: '#f44336',
+        info: '#2196F3',
+        warning: '#ff9800'
     };
     
     notification.style.cssText = `
         position: fixed;
         top: 80px;
         right: 20px;
-        background: ${bgColors[type] || bgColors.info};
+        background: ${colors[type] || colors.info};
         color: white;
         padding: 12px 20px;
         border-radius: 6px;
         z-index: 9999;
-        opacity: 0;
-        transform: translateY(-20px);
-        transition: all 0.3s ease;
-        max-width: 300px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        animation: slideIn 0.3s ease;
         font-size: 14px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        font-weight: 500;
     `;
     
+    notification.textContent = message;
     document.body.appendChild(notification);
     
     setTimeout(() => {
-        notification.style.opacity = '1';
-        notification.style.transform = 'translateY(0)';
-    }, 100);
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateY(-20px)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
     }, 3000);
+}
+
+// Add CSS animations if not present
+if (!document.getElementById('edit-user-styles')) {
+    const style = document.createElement('style');
+    style.id = 'edit-user-styles';
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
 }

@@ -21,16 +21,16 @@
         <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
       </div>
 
-  <ul class="menu">
-    <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
-    <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
-    <li><a href="/hawkeye-eds/user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
-    <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
-    <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
-    <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
-    <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
-  </ul>
-</div>
+      <ul class="menu">
+        <li><a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+        <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+        <li><a href="user.html"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+        <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+        <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+        <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+        <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+      </ul>
+    </div>
 
     <div class="main">
       <div class="topbar">
@@ -62,6 +62,7 @@
           <p>🔹 Ticket #241 resolved</p>
         </div>
       </div>
+      
       <div class="settings-container">
         <div class="settings-nav">
           <ul class="settings-tabs">
@@ -75,56 +76,58 @@
           <div id="Edit-Profile" class="settings-section">
             <div>
               <div class="forms">
-                <div class="form-section"><img src="assets/4.png" alt=""></div>
+                <div class="form-section">
+                  <img src="assets/4.png" alt="Profile Picture" id="profileImage" />
+                </div>
                 <!-- Left half of the form -->
                 <div class="form-section">
                   <div class="form-group">
                     <label for="your-name">Your Name</label>
-                    <input type="text" id="your-name" />
+                    <input type="text" id="your-name" value="John Smith" />
                   </div>
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" />
+                    <input type="email" id="email" value="john.smith@hawkeye.com" />
                   </div>
                   <div class="form-group">
                     <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" />
+                    <input type="date" id="dob" value="1990-01-15" />
                   </div>
                   <div class="form-group">
                     <label for="permanent-address">Permanent Address</label>
-                    <input id="permanent-address" rows="3"></input>
+                    <textarea id="permanent-address" rows="3">123 Main St, Anytown</textarea>
                   </div>
                   <div class="form-group">
                     <label for="postal-code">Postal Code</label>
-                    <input type="text" id="postal-code" />
+                    <input type="text" id="postal-code" value="12345" />
                   </div>
                 </div>
                 <!-- Right half of the form -->
                 <div class="form-section">
                   <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" />
+                    <input type="text" id="username" value="johnsmith" />
                   </div>
                   <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" />
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" value="+1 (555) 123-4567" />
                   </div>
                   <div class="form-group">
                     <label for="present-address">Present Address</label>
-                    <input id="present-address" rows="3"></input>
+                    <textarea id="present-address" rows="3">456 Oak Ave, Somewhere</textarea>
                   </div>
                   <div class="form-group">
                     <label for="city">City</label>
-                    <input type="text" id="city" />
+                    <input type="text" id="city" value="Anytown" />
                   </div>
                   <div class="form-group">
                     <label for="country">Country</label>
-                    <input type="text" id="country" />
+                    <input type="text" id="country" value="USA" />
                   </div>
                 </div>
               </div>
               <div class="save-btn-cont">
-                <button class="save-btn">Save</button>
+                <button class="save-btn" id="saveProfile">Save</button>
               </div>
             </div>
           </div>
@@ -136,7 +139,7 @@
                 <div class="form-group">
                   <label for="currency">Currency</label>
                   <select id="currency" class="currency-dropdown">
-                    <option value="USD">USD - US Dollar</option>
+                    <option value="USD" selected>USD - US Dollar</option>
                     <option value="INR">INR - Indian Rupee</option>
                     <option value="EUR">EUR - Euro</option>
                     <option value="GBP">GBP - British Pound</option>
@@ -151,9 +154,9 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="language">Time Zone</label>
+                  <label for="language">Language</label>
                   <select id="language" class="language-dropdown">
-                    <option value="en">English</option>
+                    <option value="en" selected>English</option>
                     <option value="hi">Hindi</option>
                     <option value="es">Spanish</option>
                     <option value="fr">French</option>
@@ -163,9 +166,34 @@
                     <option value="ar">Arabic</option>
                   </select>
                 </div>
+                <div class="form-group">
+                  <label for="timezone">Time Zone</label>
+                  <select id="timezone" class="timezone-dropdown">
+                    <option value="est" selected>Eastern Time (ET)</option>
+                    <option value="cst">Central Time (CT)</option>
+                    <option value="mst">Mountain Time (MT)</option>
+                    <option value="pst">Pacific Time (PT)</option>
+                    <option value="gmt">Greenwich Mean Time (GMT)</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <button class="save-btn">Save Preferences</button>
+            
+            <div class="notification-group">
+              <h4>Email Notifications</h4>
+              <label class="switch">
+                <input type="checkbox" id="emailNotifications" checked>
+                <span class="slider"></span>
+                <span class="toggle-label">Receive email notifications</span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" id="marketingEmails">
+                <span class="slider"></span>
+                <span class="toggle-label">Marketing emails</span>
+              </label>
+            </div>
+            
+            <button class="save-btn" id="savePreferences">Save Preferences</button>
           </div>
 
           <div id="Security" class="settings-section">
@@ -180,22 +208,28 @@
             </div>
             <div class="form-group">
               <label for="current-password">Current Password:</label>
-              <input type="password" id="current-password" />
+              <input type="password" id="current-password" placeholder="Enter current password" />
             </div>
             <div class="form-group">
               <label for="new-password">New Password:</label>
-              <input type="password" id="new-password" />
+              <input type="password" id="new-password" placeholder="Enter new password" />
             </div>
             <div class="form-group">
               <label for="confirm-password">Confirm Password:</label>
-              <input type="password" id="confirm-password" />
+              <input type="password" id="confirm-password" placeholder="Confirm new password" />
             </div>
-            <button class="save-btn">Update Password</button>
+            
+            <div class="password-strength">
+              <div class="strength-bar" id="strengthBar"></div>
+              <p class="strength-text">Password strength: <span id="strengthText">Weak</span></p>
+            </div>
+            
+            <button class="save-btn" id="updatePassword">Update Password</button>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="/js/settings.js"></script>
+    <script src="js/settings.js"></script>
   </body>
 </html>

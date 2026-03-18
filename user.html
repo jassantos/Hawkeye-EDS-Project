@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizations - Hawkeye EDS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/user-management.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 class="sidebar-title">HAWKEYE EDS</h2>
+        <div class="logo-box">
+            <img src="assets/logo.png" alt="Hawkeye Logo" class="logo" />
+        </div>
+        <ul class="menu">
+            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+            <li><a href="messaging.html"><i class="fa-regular fa-message"></i><span>Messages</span></a></li>
+            <li><a href="user.html" class="active"><i class="fa-solid fa-users"></i><span>Organizations</span></a></li>
+            <li><a href="CustomerSupport.html"><i class="fa-solid fa-headset"></i><span>Customer Support</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-wrench"></i><span>Ads</span></a></li>
+            <li><a href="Personnel.html"><i class="fa-regular fa-user"></i><span>Personnel</span></a></li>
+            <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="topbar">
+            <h1>Customer Service Portal</h1>
+            <div class="search">
+                <input type="text" placeholder="Search" />
+                <button>🔍</button>
+            </div>
+            <div class="icons">
+                <div class="icon-btn" id="settingsBtn">⚙️</div>
+                <div class="icon-btn" id="notifyBtn">
+                    🔔<span class="badge">2</span>
+                </div>
+                <img src="assets/4.png" class="profile" alt="User" />
+            </div>
+
+            <!-- Settings dropdown -->
+            <div class="dropdown" id="settingsDropdown">
+                <p><a href="#">Profile Settings</a></p>
+                <p><a href="#">Theme Options</a></p>
+                <p><a href="#">Logout</a></p>
+            </div>
+
+            <!-- Notifications dropdown -->
+            <div class="dropdown" id="notifyDropdown">
+                <p>🔹 System alert: new update available</p>
+                <p>🔹 Ticket #241 resolved</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h2>Organizations</h2>
+            <p class="subtitle">Manage Users and Permissions</p>
+
+            <div class="school-header">
+                <div class="school-info">
+                    <img src="assets/school-logo.png" alt="School Logo" class="school-logo" onerror="this.src='assets/logo.png'">
+                    <h2>Whitewater High School</h2>
+                </div>
+                <i class="fas fa-chevron-down dropdown-icon"></i>
+            </div>
+
+            <div class="content-search">
+                <div class="search-container">
+                    <input type="text" placeholder="Search users" class="content-search-input" id="searchUsers">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <button class="search-btn" id="searchBtn">Search</button>
+                <!-- Add User Button -->
+                <button class="add-user-btn" id="addUserBtn">
+                    <i class="fas fa-plus"></i> Add User
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="select-all"></th>
+                            <th>Full Name <i class="fas fa-sort"></i></th>
+                            <th>Email <i class="fas fa-sort"></i></th>
+                            <th>Username <i class="fas fa-sort"></i></th>
+                            <th>Status <i class="fas fa-sort"></i></th>
+                            <th>Role <i class="fas fa-sort"></i></th>
+                            <th>Joined Date <i class="fas fa-sort"></i></th>
+                            <th>Last Active <i class="fas fa-sort"></i></th>
+                            <th>Actions <i class="fas fa-sort"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Table rows will be populated by JavaScript -->
+                        <!-- This empty tbody ensures no duplication with JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/user.js"></script>
+</body>
+</html>
